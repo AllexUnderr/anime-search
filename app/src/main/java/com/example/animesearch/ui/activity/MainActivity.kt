@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
 import com.example.animesearch.databinding.ActivityMainBinding
-import com.example.animesearch.animeList.AnimeListFragment
+import com.example.animesearch.search.AnimeFragment
 
 class MainActivity : FragmentActivity() {
 
@@ -15,7 +15,7 @@ class MainActivity : FragmentActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
         supportFragmentManager.commit {
-            add(binding.fragmentContainer.id, AnimeListFragment())
+            add(binding.fragmentContainer.id, AnimeFragment())
         }
     }
 }

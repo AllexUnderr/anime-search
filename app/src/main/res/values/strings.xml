@@ -1,5 +1,33 @@
 <resources>
     <string name="app_name">animesearch</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="anime_avatar">anime avatar</string>
+    <string name="episode">episodes</string>
+    <string name="score">Score:</string>
+    <string name="by">by</string>
+    <string name="users">users</string>
+    <string name="rank">Rank:</string>
+    <string name="popularity">, popularity: </string>
+    <string name="premiered">Premiered:</string>
+    <string name="filters">Filters</string>
+    <string name="top">Top</string>
+    <string name="min_score_hint">8.0</string>
+    <string name="min_score">Min score:</string>
+    <string name="confirm">confirm</string>
+    <string name="tv">TV</string>
+    <string name="movie">movie</string>
+    <string name="ova">ova</string>
+    <string name="special">special</string>
+    <string name="ona">ona</string>
+    <string name="music">music</string>
+    <string name="airing">airing</string>
+    <string name="complete">complete</string>
+    <string name="upcoming">upcoming</string>
+    <string name="popularityRadioButton">popularity</string>
+    <string name="scoreRadioButton">score</string>
+    <string name="end_date">end date</string>
+    <string name="type">Type:</string>
+    <string name="status">Status:</string>
+    <string name="order_by">Order by:</string>
+    <string name="unknown">Unknown</string>
+    <string name="rankButton">rank</string>
 </resources>
