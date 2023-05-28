@@ -1,6 +1,8 @@
 package com.example.animesearch.search.model
 
-enum class AnimeType {
+import com.example.animesearch.filter.model.Filter
+
+enum class AnimeType : Filter {
     TV,
     MOVIE,
     OVA,
