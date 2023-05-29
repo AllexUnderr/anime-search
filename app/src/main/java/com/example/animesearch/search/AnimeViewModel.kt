@@ -3,7 +3,7 @@ package com.example.animesearch.search
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.animesearch.filter.model.Filter
+import com.example.animesearch.filter.model.AnimeSearchFilters
 import com.example.animesearch.search.model.Anime
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -31,13 +31,13 @@ class AnimeViewModel(private val animeRepository: AnimeRepository) : ViewModel()
             )
     }
 
-    fun loadFilteredAnimes(filters: List<Filter>) {
+    fun loadFilteredAnimes(filters: AnimeSearchFilters) {
         disposable += animeRepository.getFilteredAnimeList(filters)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onSuccess = {
-                    _animes.value = it
+                    _animes.value = animeRepository.removeEmptyRankAnimes(it)
                 },
                 onError = {
                     it.printStackTrace()

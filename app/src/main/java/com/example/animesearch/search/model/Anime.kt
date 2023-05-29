@@ -5,9 +5,9 @@ data class Anime(
     val imageUrl: String,
     val name: String,
     val episodeCount: Int?,
-    val score: Double,
-    val scoredBy: Int,
-    val rank: Int,
-    val popularity: Int,
+    val score: Double?,
+    val scoredBy: Int?,
+    val rank: Int?,
+    val popularity: Int?,
     val year: Int?,
 )

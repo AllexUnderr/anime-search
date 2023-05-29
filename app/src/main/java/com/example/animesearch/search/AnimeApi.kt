@@ -13,12 +13,12 @@ interface AnimeApi {
     @GET("anime")
     fun animesByFilters(
         @Query("page") page: Int? = null,
-        @Query("type") type: AnimeType,
-        @Query("min_score") minScore: Double,
-        @Query("status") status: AnimeStatus,
+        @Query("type") type: AnimeType?,
+        @Query("min_score") minScore: Double?,
+        @Query("status") status: AnimeStatus?,
         @Query("sfw") sfw: Boolean = true,
-        @Query("genres") genres: String,
-        @Query("order_by") orderBy: OrderBy = OrderBy.POPULARITY,
+        @Query("genres") genres: String?,
+        @Query("order_by") orderBy: OrderBy?,
     ): Single<AnimeDto>
 
     @GET("top/anime")
