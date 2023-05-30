@@ -6,13 +6,13 @@
     <string name="by">by</string>
     <string name="users">users</string>
     <string name="rank">Rank:</string>
-    <string name="popularity">, popularity: </string>
+    <string name="popularity">, popularity:</string>
     <string name="premiered">Premiered:</string>
     <string name="filters">Filters</string>
     <string name="top">Top</string>
     <string name="min_score_hint">8.0</string>
     <string name="min_score">Min score:</string>
-    <string name="confirm">confirm</string>
+    <string name="confirm">Confirm</string>
     <string name="tv">TV</string>
     <string name="movie">movie</string>
     <string name="ova">ova</string>
@@ -25,9 +25,28 @@
     <string name="popularityRadioButton">popularity</string>
     <string name="scoreRadioButton">score</string>
     <string name="end_date">end date</string>
-    <string name="type">Type:</string>
-    <string name="status">Status:</string>
-    <string name="order_by">Order by:</string>
+    <string name="type">Type</string>
+    <string name="status">Status</string>
+    <string name="order_by">Order by</string>
     <string name="unknown">Unknown</string>
     <string name="rankButton">rank</string>
+    <string name="genres">Genres</string>
+
+    <string name="no_matter">No matter</string>
+
+    <string name="anime_status_airing">airing</string>
+    <string name="anime_status_complete">complete</string>
+    <string name="anime_status_upcoming">upcoming</string>
+
+    <string name="anime_type_tv">TV</string>
+    <string name="anime_type_movie">Movie</string>
+    <string name="anime_type_ova">OVA</string>
+    <string name="anime_type_special">Special</string>
+    <string name="anime_type_ona">ONA</string>
+    <string name="anime_type_music">Music</string>
+
+    <string name="order_by_rank">Rank</string>
+    <string name="order_by_popularity">Popularity</string>
+    <string name="order_by_score">Score</string>
+    <string name="order_by_end_date">End date</string>
 </resources>

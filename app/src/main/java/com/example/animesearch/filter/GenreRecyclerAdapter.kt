@@ -7,20 +7,25 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animesearch.databinding.RecyclerviewGenreItemBinding
-import com.example.animesearch.filter.model.Genre
+import com.example.animesearch.filter.model.GenreListItem
 
-class GenreRecyclerAdapter(private val checkListener: OnGenreCheckListener) :
-    ListAdapter<Genre, GenreRecyclerAdapter.ViewHolder>(AnimeItemCallback()) {
+class GenreRecyclerAdapter : ListAdapter<GenreListItem, GenreRecyclerAdapter.ViewHolder>(AnimeItemCallback()) {
 
-    interface OnGenreCheckListener {
-        fun onGenreCheck(genre: Genre)
+    class ViewHolder(binding: RecyclerviewGenreItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        private lateinit var item: GenreListItem
 
-        fun onGenreUncheck(genre: Genre)
-    }
+        init {
+            binding.genreCheckBox.setOnClickListener { item.click() }
+        }
 
-    class ViewHolder(binding: RecyclerviewGenreItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        val nameCheckBox: CheckBox = binding.genreCheckBox
+        private val genreCheckBox: CheckBox = binding.genreCheckBox
+
+        fun onBindViewHolder(item: GenreListItem) {
+            this.item = item
+
+            genreCheckBox.text = item.genre.name
+            genreCheckBox.isChecked = item.isChecked
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
@@ -33,22 +38,14 @@ class GenreRecyclerAdapter(private val checkListener: OnGenreCheckListener) :
         )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val genre = getItem(position)
-
-        holder.nameCheckBox.text = genre.name
-        holder.nameCheckBox.setOnClickListener {
-            if (holder.nameCheckBox.isChecked)
-                checkListener.onGenreCheck(genre)
-            else
-                checkListener.onGenreUncheck(genre)
-        }
+        holder.onBindViewHolder(getItem(position))
     }
 
-    private class AnimeItemCallback : DiffUtil.ItemCallback<Genre>() {
-        override fun areItemsTheSame(oldItem: Genre, newItem: Genre) =
-            oldItem.id == newItem.id
+    private class AnimeItemCallback : DiffUtil.ItemCallback<GenreListItem>() {
+        override fun areItemsTheSame(oldItem: GenreListItem, newItem: GenreListItem) =
+            oldItem.genre.id == newItem.genre.id
 
-        override fun areContentsTheSame(oldItem: Genre, newItem: Genre) =
+        override fun areContentsTheSame(oldItem: GenreListItem, newItem: GenreListItem) =
             oldItem == newItem
     }
 }

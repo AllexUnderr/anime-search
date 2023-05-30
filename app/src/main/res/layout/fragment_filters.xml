@@ -1,162 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="15dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/type"
+        android:textColor="@color/primary40"
+        android:textSize="25sp" />
+
+    <Spinner
+        android:id="@+id/typeSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="7dp"
+        android:backgroundTint="@color/primary20"
+        android:popupBackground="@color/primary80" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="7dp"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/type"
+            android:text="@string/min_score"
+            android:textColor="@color/primary40"
             android:textSize="22sp" />
 
-        <RadioGroup
-            android:id="@+id/animeTypeRadioGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/tvRadioButton"
-                style="@style/CustomRadioButton"
-                android:checked="true"
-                android:text="@string/tv" />
-
-            <RadioButton
-                android:id="@+id/movieRadioButton"
-                style="@style/CustomRadioButton"
-                android:text="@string/movie" />
-
-            <RadioButton
-                android:id="@+id/ovaRadioButton"
-                style="@style/CustomRadioButton"
-                android:text="@string/ova" />
-
-            <RadioButton
-                android:id="@+id/specialRadioButton"
-                style="@style/CustomRadioButton"
-                android:text="@string/special" />
-
-            <RadioButton
-                android:id="@+id/onaRadioButton"
-                style="@style/CustomRadioButton"
-                android:text="@string/ona" />
-
-            <RadioButton
-                android:id="@+id/musicRadioButton"
-                style="@style/CustomRadioButton"
-                android:text="@string/music" />
-
-        </RadioGroup>
-
-        <LinearLayout
+        <EditText
+            android:id="@+id/editTextNumberSigned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/min_score"
-                android:textSize="22sp" />
-
-            <EditText
-                android:id="@+id/editTextNumberSigned"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="3"
-                android:hint="@string/min_score_hint"
-                android:importantForAutofill="no"
-                android:inputType="numberDecimal"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textColorHint="@color/gray"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/genresRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginVertical="10dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/status"
-            android:textSize="22sp" />
-
-        <RadioGroup
-            android:id="@+id/animeStatusRadioGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/completeRadioButton"
-                style="@style/CustomRadioButton"
-                android:checked="true"
-                android:text="@string/complete" />
-
-            <RadioButton
-                android:id="@+id/airingRadioButton"
-                style="@style/CustomRadioButton"
-                android:text="@string/airing" />
-
-            <RadioButton
-                android:id="@+id/upcoming"
-                style="@style/CustomRadioButton"
-                android:text="@string/upcoming" />
-
-        </RadioGroup>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/order_by"
-            android:textSize="22sp" />
-
-        <RadioGroup
-            android:id="@+id/orderByRadioGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/rankRadioButton"
-                style="@style/CustomRadioButton"
-                android:checked="true"
-                android:text="@string/rankButton" />
-
-            <RadioButton
-                android:id="@+id/popularityRadioButton"
-                style="@style/CustomRadioButton"
-                android:text="@string/popularityRadioButton" />
-
-            <RadioButton
-                android:id="@+id/scoreRadioButton"
-                style="@style/CustomRadioButton"
-                android:text="@string/scoreRadioButton" />
-
-            <RadioButton
-                android:id="@+id/endDateRadioButton"
-                style="@style/CustomRadioButton"
-                android:text="@string/end_date" />
-
-        </RadioGroup>
-
-        <Button
-            android:id="@+id/confirmButton"
-            style="@style/CustomButton"
-            android:layout_gravity="center"
-            android:text="@string/confirm" />
+            android:backgroundTint="@color/primary20"
+            android:ems="3"
+            android:hint="@string/min_score_hint"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:textAlignment="center"
+            android:textColor="@color/primary30"
+            android:textColorHint="@color/primary40" />
 
     </LinearLayout>
-</ScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/genres"
+        android:textColor="@color/primary40"
+        android:textSize="22sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/genresRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginVertical="15dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/status"
+        android:textColor="@color/primary40"
+        android:textSize="22sp" />
+
+    <Spinner
+        android:id="@+id/statusSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="7dp"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="@color/primary20"
+        android:popupBackground="@color/primary80" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/order_by"
+        android:textColor="@color/primary40"
+        android:textSize="22sp" />
+
+    <Spinner
+        android:id="@+id/orderBySpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="7dp"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="@color/primary20"
+        android:popupBackground="@color/primary80" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/confirmButton"
+        style="@style/CustomButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/confirm" />
+
+</LinearLayout>

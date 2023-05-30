@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#F6F6F6</color>
-    <color name="gray">#ABB4BD</color>
-    <color name="primary">#EF3651</color>
-    <color name="background">#1E1F28</color>
-    <color name="dark">#2A2C36</color>
-    <color name="success">#55D85A</color>
-    <color name="error">#FF2424</color>
+    <color name="dark">#585A68</color>
+    <color name="primary10">#C1E8FF</color>
+    <color name="primary20">#76D1FF</color>
+    <color name="primary30">#4BB6E8</color>
+    <color name="primary40">#219BCC</color>
+    <color name="primary50">#007FAC</color>
+    <color name="primary60">#00668B</color>
+    <color name="primary70">#004C69</color>
+    <color name="primary80">#003549</color>
+    <color name="primary85">#002A3A</color>
+    <color name="primary90">#001E2C</color>
+    <color name="primary95">#001925</color>
+    <color name="primary100">#000000</color>
 </resources>

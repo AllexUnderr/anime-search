@@ -4,15 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
 import com.example.animesearch.R
 import com.example.animesearch.databinding.FragmentFiltersBinding
-import com.example.animesearch.filter.model.Filter
-import com.example.animesearch.filter.model.MinScore
+import com.example.animesearch.filter.model.AnimeSearchFilters
 import com.example.animesearch.helper.MainApplication
 import com.example.animesearch.search.model.AnimeStatus
 import com.example.animesearch.search.model.AnimeType
 import com.example.animesearch.search.model.OrderBy
+import android.R.layout.simple_spinner_item
+import android.R.layout.simple_spinner_dropdown_item
+import com.example.animesearch.search.model.getStringResourceId
 import javax.inject.Inject
 
 class FilterDialogFragment : DialogFragment() {
@@ -39,6 +42,8 @@ class FilterDialogFragment : DialogFragment() {
 
         initViews()
         bindViewModel()
+
+        viewModel.init()
     }
 
     override fun getTheme(): Int {
@@ -52,6 +57,24 @@ class FilterDialogFragment : DialogFragment() {
     }
 
     private fun initViews() {
+        val animeTypes = listOf(getString(R.string.no_matter)) + AnimeType.values().map { getString(it.getStringResourceId()) }
+        ArrayAdapter(requireContext(), simple_spinner_item, animeTypes).also {
+            it.setDropDownViewResource(simple_spinner_dropdown_item)
+            binding.typeSpinner.adapter = it
+        }
+
+        val animeStatuses = listOf(getString(R.string.no_matter)) + AnimeStatus.values().map { getString(it.getStringResourceId()) }
+        ArrayAdapter(requireContext(), simple_spinner_item, animeStatuses).also {
+            it.setDropDownViewResource(simple_spinner_dropdown_item)
+            binding.statusSpinner.adapter = it
+        }
+
+        val orderBy = listOf(getString(R.string.no_matter)) + OrderBy.values().map { getString(it.getStringResourceId()) }
+        ArrayAdapter(requireContext(), simple_spinner_item, orderBy).also {
+            it.setDropDownViewResource(simple_spinner_dropdown_item)
+            binding.orderBySpinner.adapter = it
+        }
+
         binding.confirmButton.setOnClickListener {
             setFilters()
             dismiss()
@@ -59,10 +82,9 @@ class FilterDialogFragment : DialogFragment() {
     }
 
     private fun bindViewModel() {
-        val genreAdapter = GenreRecyclerAdapter(viewModel.genreCheckListener)
+        val genreAdapter = GenreRecyclerAdapter()
         binding.genresRecyclerView.adapter = genreAdapter
-
-        viewModel.genres.observe(this) {
+        viewModel.genreList.observe(this) {
             genreAdapter.submitList(it)
         }
 
@@ -70,59 +92,48 @@ class FilterDialogFragment : DialogFragment() {
             (parentFragment as Listener)
                 .onFiltersPicked(it)
         }
-
-        viewModel.loadGenres()
     }
 
 
     private fun setFilters() {
         viewModel.passFilters(
-            getAnimeType(),
-            getMinScore(),
-            viewModel.checkedGenres,
-            getAnimeStatus(),
-            getOrderBy()
+            AnimeSearchFilters(
+                type = getAnimeType(),
+                minScore = getMinScore(),
+                genres = viewModel.getCheckedGenres(),
+                status = getAnimeStatus(),
+                orderBy = getOrderBy()
+            )
         )
     }
 
-    private fun getAnimeType() =
-        when (binding.animeTypeRadioGroup.checkedRadioButtonId) {
-            R.id.tvRadioButton -> AnimeType.TV
-            R.id.movieRadioButton -> AnimeType.MOVIE
-            R.id.ovaRadioButton -> AnimeType.OVA
-            R.id.specialRadioButton -> AnimeType.SPECIAL
-            R.id.onaRadioButton -> AnimeType.ONA
-            R.id.musicRadioButton -> AnimeType.MUSIC
-            else -> AnimeType.TV
-        }
+    private fun getAnimeType(): AnimeType? =
+        if (binding.typeSpinner.selectedItemPosition != 0)
+            AnimeType.values()[binding.typeSpinner.selectedItemPosition - 1]
+        else
+            null
 
     private fun getMinScore() =
-        MinScore(
-            if (binding.editTextNumberSigned.text.isNotBlank())
-                binding.editTextNumberSigned.text.toString().toDouble()
-            else
-                0.0
-        )
+        if (!binding.editTextNumberSigned.text.isNullOrBlank())
+            binding.editTextNumberSigned.text.toString().toDouble()
+        else
+            null
 
-    private fun getAnimeStatus() =
-        when (binding.animeStatusRadioGroup.checkedRadioButtonId) {
-            R.id.completeRadioButton -> AnimeStatus.COMPLETE
-            R.id.airingRadioButton -> AnimeStatus.AIRING
-            R.id.upcoming -> AnimeStatus.UPCOMING
-            else -> AnimeStatus.COMPLETE
-        }
+    private fun getAnimeStatus(): AnimeStatus? =
+        if (binding.statusSpinner.selectedItemPosition != 0)
+            AnimeStatus.values()[binding.statusSpinner.selectedItemPosition - 1]
+        else
+            null
 
-    private fun getOrderBy() =
-        when (binding.orderByRadioGroup.checkedRadioButtonId) {
-            R.id.rankRadioButton -> OrderBy.RANK
-            R.id.popularityRadioButton -> OrderBy.POPULARITY
-            R.id.scoreRadioButton -> OrderBy.SCORE
-            R.id.endDateRadioButton -> OrderBy.END_DATE
-            else -> OrderBy.RANK
-        }
+    private fun getOrderBy(): OrderBy? =
+        if (binding.orderBySpinner.selectedItemPosition != 0)
+            OrderBy.values()[binding.orderBySpinner.selectedItemPosition - 1]
+        else
+            null
+
 
     interface Listener {
-        fun onFiltersPicked(filters: List<Filter>)
+        fun onFiltersPicked(filters: AnimeSearchFilters)
     }
 
     companion object {

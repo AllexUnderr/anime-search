@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.animesearch.databinding.FragmentAnimeBinding
 import com.example.animesearch.filter.FilterDialogFragment
-import com.example.animesearch.filter.model.Filter
+import com.example.animesearch.filter.model.AnimeSearchFilters
 import com.example.animesearch.helper.MainApplication
 import javax.inject.Inject
 
@@ -15,8 +15,6 @@ class AnimeFragment : Fragment(), FilterDialogFragment.Listener {
 
     private var _binding: FragmentAnimeBinding? = null
     private val binding get() = _binding!!
-
-    private val animeAdapter = AnimeRecyclerAdapter()
 
     @Inject
     lateinit var viewModel: AnimeViewModel
@@ -27,7 +25,7 @@ class AnimeFragment : Fragment(), FilterDialogFragment.Listener {
         return binding.root
     }
 
-    override fun onFiltersPicked(filters: List<Filter>) {
+    override fun onFiltersPicked(filters: AnimeSearchFilters) {
         viewModel.loadFilteredAnimes(filters)
     }
 
@@ -57,11 +55,11 @@ class AnimeFragment : Fragment(), FilterDialogFragment.Listener {
         binding.showFilterDialogButton.setOnClickListener {
             FilterDialogFragment().show(childFragmentManager, FilterDialogFragment.TAG)
         }
-
-        binding.animeRecyclerView.adapter = animeAdapter
     }
 
     private fun bindViewModel() {
+        val animeAdapter = AnimeRecyclerAdapter()
+        binding.animeRecyclerView.adapter = animeAdapter
         viewModel.animes.observe(viewLifecycleOwner) {
             animeAdapter.submitList(it)
         }

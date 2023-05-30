@@ -12,8 +12,7 @@ object RetrofitProvider {
 
     private const val url = "https://api.jikan.moe/v4/"
 
-    private val interceptor =
-        HttpLoggingInterceptor().also { it.level = HttpLoggingInterceptor.Level.BODY }
+    private val interceptor = HttpLoggingInterceptor().also { it.level = HttpLoggingInterceptor.Level.BODY }
 
     private val client = OkHttpClient
         .Builder()

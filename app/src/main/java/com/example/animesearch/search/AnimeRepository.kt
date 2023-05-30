@@ -1,12 +1,7 @@
 package com.example.animesearch.search
 
-import com.example.animesearch.filter.model.Filter
-import com.example.animesearch.filter.model.Genre
-import com.example.animesearch.filter.model.MinScore
+import com.example.animesearch.filter.model.AnimeSearchFilters
 import com.example.animesearch.search.model.Anime
-import com.example.animesearch.search.model.AnimeStatus
-import com.example.animesearch.search.model.AnimeType
-import com.example.animesearch.search.model.OrderBy
 import com.example.animesearch.search.model.dto.AnimeDto
 import io.reactivex.Single
 
@@ -14,16 +9,19 @@ class AnimeRepository(private val animeApi: AnimeApi) {
 
     fun getAnimeList(): Single<List<Anime>> = animeApi.topAnime().map { convertAnimeDto(it) }
 
-    fun getFilteredAnimeList(filters: List<Filter>): Single<List<Anime>> =
+    fun getFilteredAnimeList(filters: AnimeSearchFilters): Single<List<Anime>> =
         animeApi.animesByFilters(
-            type = filters.filterIsInstance<AnimeType>().first(),
-            minScore = filters.filterIsInstance<MinScore>().first().score,
-            status = filters.filterIsInstance<AnimeStatus>().first(),
-            genres = filters.filterIsInstance<Genre>().joinToString(separator = ",") { it.id.toString() },
-            orderBy = filters.filterIsInstance<OrderBy>().first()
+            type = filters.type,
+            minScore = filters.minScore,
+            status = filters.status,
+            genres = filters.genres?.joinToString(",") { it.id.toString() },
+            orderBy = filters.orderBy
         ).map {
             convertAnimeDto(it)
         }
+
+    fun removeEmptyRankAnimes(anime: List<Anime>): List<Anime> =
+        anime.filter { it.rank != null && it.rank != 0 }
 
     private fun convertAnimeDto(animeDto: AnimeDto): List<Anime> =
         animeDto.data.map {
