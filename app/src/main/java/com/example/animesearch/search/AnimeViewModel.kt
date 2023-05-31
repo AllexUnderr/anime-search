@@ -2,55 +2,34 @@ package com.example.animesearch.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.animesearch.core.BaseViewModel
 import com.example.animesearch.filter.model.AnimeSearchFilters
 import com.example.animesearch.search.model.Anime
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
-class AnimeViewModel(private val animeRepository: AnimeRepository) : ViewModel() {
+class AnimeViewModel(private val animeRepository: AnimeRepository) : BaseViewModel() {
 
     private val _animes: MutableLiveData<List<Anime>> = MutableLiveData()
     val animes: LiveData<List<Anime>> = _animes
 
-    private val disposable: MutableList<Disposable> = mutableListOf()
-
     fun loadTopAnime() {
-        disposable += animeRepository.getAnimeList()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(
-                onSuccess = {
-                    _animes.value = it
-                },
-                onError = {
-                    it.printStackTrace()
-                }
-            )
+        viewModelScope.launch {
+            try {
+                _animes.value = animeRepository.getAnimeList()
+            } catch (e: Exception) {
+                processError(e)
+            }
+        }
     }
 
     fun loadFilteredAnimes(filters: AnimeSearchFilters) {
-        disposable += animeRepository.getFilteredAnimeList(filters)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(
-                onSuccess = {
-                    _animes.value = animeRepository.removeEmptyRankAnimes(it)
-                },
-                onError = {
-                    it.printStackTrace()
-                }
-            )
-    }
-
-    fun destroy() {
-        clearDisposable()
-    }
-
-    private fun clearDisposable() {
-        disposable.forEach { it.dispose() }
-        disposable.clear()
+        viewModelScope.launch {
+            try {
+                _animes.value = animeRepository.getFilteredAnimeList(filters)
+            } catch (e: Exception) {
+                processError(e)
+            }
+        }
     }
 }

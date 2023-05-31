@@ -31,6 +31,8 @@
     <string name="unknown">Unknown</string>
     <string name="rankButton">rank</string>
     <string name="genres">Genres</string>
+    <string name="network_error">No internet connection!</string>
+    <string name="connection_restored">Connection restored!</string>
 
     <string name="no_matter">No matter</string>
 
@@ -49,4 +51,5 @@
     <string name="order_by_popularity">Popularity</string>
     <string name="order_by_score">Score</string>
     <string name="order_by_end_date">End date</string>
+    <string name="refresh">Refresh</string>
 </resources>
