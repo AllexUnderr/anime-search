@@ -8,17 +8,14 @@ import android.view.ViewGroup
 import com.example.animesearch.databinding.FragmentAnimeBinding
 import com.example.animesearch.filter.FilterDialogFragment
 import com.example.animesearch.filter.model.AnimeSearchFilters
-import com.example.animesearch.helper.MainApplication
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AnimeFragment : Fragment(), FilterDialogFragment.Listener {
 
     private var _binding: FragmentAnimeBinding? = null
     private val binding get() = _binding!!
 
-    @Inject
-    lateinit var viewModel: AnimeViewModel
-
+    private val viewModel: AnimeViewModel by viewModel()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAnimeBinding.inflate(inflater, container, false)
 
@@ -27,11 +24,6 @@ class AnimeFragment : Fragment(), FilterDialogFragment.Listener {
 
     override fun onFiltersPicked(filters: AnimeSearchFilters) {
         viewModel.loadFilteredAnimes(filters)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        MainApplication.appComponent.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +36,6 @@ class AnimeFragment : Fragment(), FilterDialogFragment.Listener {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        viewModel.destroy()
     }
 
     private fun initViews() {

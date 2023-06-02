@@ -9,27 +9,20 @@ import androidx.fragment.app.DialogFragment
 import com.example.animesearch.R
 import com.example.animesearch.databinding.FragmentFiltersBinding
 import com.example.animesearch.filter.model.AnimeSearchFilters
-import com.example.animesearch.helper.MainApplication
 import com.example.animesearch.search.model.AnimeStatus
 import com.example.animesearch.search.model.AnimeType
 import com.example.animesearch.search.model.OrderBy
 import android.R.layout.simple_spinner_item
 import android.R.layout.simple_spinner_dropdown_item
 import com.example.animesearch.search.model.getStringResourceId
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilterDialogFragment : DialogFragment() {
 
     private var _binding: FragmentFiltersBinding? = null
     private val binding get() = _binding!!
 
-    @Inject
-    lateinit var viewModel: FilterViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        MainApplication.appComponent.inject(this)
-    }
+    private val viewModel: FilterViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentFiltersBinding.inflate(inflater, container, false)
@@ -53,23 +46,25 @@ class FilterDialogFragment : DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        viewModel.destroy()
     }
 
     private fun initViews() {
-        val animeTypes = listOf(getString(R.string.no_matter)) + AnimeType.values().map { getString(it.getStringResourceId()) }
+        val animeTypes =
+            listOf(getString(R.string.no_matter)) + AnimeType.values().map { getString(it.getStringResourceId()) }
         ArrayAdapter(requireContext(), simple_spinner_item, animeTypes).also {
             it.setDropDownViewResource(simple_spinner_dropdown_item)
             binding.typeSpinner.adapter = it
         }
 
-        val animeStatuses = listOf(getString(R.string.no_matter)) + AnimeStatus.values().map { getString(it.getStringResourceId()) }
+        val animeStatuses =
+            listOf(getString(R.string.no_matter)) + AnimeStatus.values().map { getString(it.getStringResourceId()) }
         ArrayAdapter(requireContext(), simple_spinner_item, animeStatuses).also {
             it.setDropDownViewResource(simple_spinner_dropdown_item)
             binding.statusSpinner.adapter = it
         }
 
-        val orderBy = listOf(getString(R.string.no_matter)) + OrderBy.values().map { getString(it.getStringResourceId()) }
+        val orderBy =
+            listOf(getString(R.string.no_matter)) + OrderBy.values().map { getString(it.getStringResourceId()) }
         ArrayAdapter(requireContext(), simple_spinner_item, orderBy).also {
             it.setDropDownViewResource(simple_spinner_dropdown_item)
             binding.orderBySpinner.adapter = it
@@ -93,7 +88,6 @@ class FilterDialogFragment : DialogFragment() {
                 .onFiltersPicked(it)
         }
     }
-
 
     private fun setFilters() {
         viewModel.passFilters(

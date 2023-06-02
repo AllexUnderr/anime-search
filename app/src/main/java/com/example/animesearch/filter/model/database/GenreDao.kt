@@ -4,14 +4,13 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import io.reactivex.Single
 
 @Dao
 interface GenreDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertGenreList(genres: List<GenreEntity>)
+    suspend fun insertGenreList(genres: List<GenreEntity>)
 
     @Query("SELECT * FROM GenreEntity")
-    fun getGenres(): Single<List<GenreEntity>>
+    suspend fun getGenres(): List<GenreEntity>
 }

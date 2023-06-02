@@ -2,6 +2,8 @@
 <resources>
     <color name="white">#F6F6F6</color>
     <color name="dark">#585A68</color>
+    <color name="error">#FF7043</color>
+    <color name="success">#4CBB17</color>
     <color name="primary10">#C1E8FF</color>
     <color name="primary20">#76D1FF</color>
     <color name="primary30">#4BB6E8</color>

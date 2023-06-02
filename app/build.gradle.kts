@@ -34,6 +34,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
+            @Suppress("UnstableApiUsage")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -44,6 +45,7 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
+    @Suppress("UnstableApiUsage")
     buildFeatures {
         compose = true
     }
@@ -55,32 +57,27 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    @Suppress("UnstableApiUsage")
     buildFeatures {
         viewBinding = true
     }
 }
 
 dependencies {
-    val retrofitVersion = "2.9.0"
-    val daggerVersion = "2.46"
     val roomVersion = "2.5.1"
 
-    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
-    implementation("com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion")
+    implementation("io.insert-koin:koin-android:3.4.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.2.1")
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
     implementation("androidx.fragment:fragment-ktx:1.5.7")
     implementation("androidx.recyclerview:recyclerview:1.3.0")
-    implementation("com.google.dagger:dagger:$daggerVersion")
-    kapt("com.google.dagger:dagger-compiler:$daggerVersion")
-    implementation("io.reactivex.rxjava2:rxjava:2.2.21")
-    implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
-    implementation("io.reactivex.rxjava2:rxkotlin:2.4.0")
     implementation("com.github.bumptech.glide:glide:4.15.1")
     ksp("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-runtime:$roomVersion")
-    implementation("androidx.room:room-rxjava2:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
     implementation("com.google.android.flexbox:flexbox:3.0.0")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.core:core-ktx:1.10.1")
