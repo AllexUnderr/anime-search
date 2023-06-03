@@ -9,5 +9,15 @@ data class AnimeSearchFilters(
     val minScore: Double?,
     val genres: List<Genre>?,
     val status: AnimeStatus?,
-    val orderBy: OrderBy?
-)
+    val orderBy: OrderBy?,
+) {
+    companion object {
+        val Empty = AnimeSearchFilters(
+            type = null,
+            minScore = null,
+            genres = null,
+            status = null,
+            orderBy = null,
+        )
+    }
+}

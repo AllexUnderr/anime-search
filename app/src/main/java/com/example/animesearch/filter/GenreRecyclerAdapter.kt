@@ -38,7 +38,9 @@ class GenreRecyclerAdapter : ListAdapter<GenreListItem, GenreRecyclerAdapter.Vie
         )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.onBindViewHolder(getItem(position))
+        holder.onBindViewHolder(
+            getItem(position)
+        )
     }
 
     private class AnimeItemCallback : DiffUtil.ItemCallback<GenreListItem>() {
