@@ -20,7 +20,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class FilterDialogFragment : DialogFragment() {
 
     private var _binding: FragmentFiltersBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = requireNotNull(_binding)
 
     private val viewModel: FilterViewModel by viewModel()
 
@@ -49,29 +49,26 @@ class FilterDialogFragment : DialogFragment() {
     }
 
     private fun initViews() {
-        val animeTypes =
-            listOf(getString(R.string.no_matter)) + AnimeType.values().map { getString(it.getStringResourceId()) }
+        val animeTypes = listOf(getString(R.string.no_matter)) + AnimeType.values().map { getString(it.getStringResourceId()) }
         ArrayAdapter(requireContext(), simple_spinner_item, animeTypes).also {
             it.setDropDownViewResource(simple_spinner_dropdown_item)
             binding.typeSpinner.adapter = it
         }
 
-        val animeStatuses =
-            listOf(getString(R.string.no_matter)) + AnimeStatus.values().map { getString(it.getStringResourceId()) }
+        val animeStatuses = listOf(getString(R.string.no_matter)) + AnimeStatus.values().map { getString(it.getStringResourceId()) }
         ArrayAdapter(requireContext(), simple_spinner_item, animeStatuses).also {
             it.setDropDownViewResource(simple_spinner_dropdown_item)
             binding.statusSpinner.adapter = it
         }
 
-        val orderBy =
-            listOf(getString(R.string.no_matter)) + OrderBy.values().map { getString(it.getStringResourceId()) }
+        val orderBy = listOf(getString(R.string.no_matter)) + OrderBy.values().map { getString(it.getStringResourceId()) }
         ArrayAdapter(requireContext(), simple_spinner_item, orderBy).also {
             it.setDropDownViewResource(simple_spinner_dropdown_item)
             binding.orderBySpinner.adapter = it
         }
 
         binding.confirmButton.setOnClickListener {
-            setFilters()
+            onConfirmButtonClick()
             dismiss()
         }
     }
@@ -89,14 +86,14 @@ class FilterDialogFragment : DialogFragment() {
         }
     }
 
-    private fun setFilters() {
-        viewModel.passFilters(
+    private fun onConfirmButtonClick() {
+        viewModel.onConfirmButtonClick(
             AnimeSearchFilters(
                 type = getAnimeType(),
                 minScore = getMinScore(),
                 genres = viewModel.getCheckedGenres(),
                 status = getAnimeStatus(),
-                orderBy = getOrderBy()
+                orderBy = getOrderBy(),
             )
         )
     }

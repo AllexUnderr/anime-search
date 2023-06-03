@@ -9,7 +9,9 @@ import com.example.animesearch.filter.model.GenreListItem
 import com.example.animesearch.helper.SingleLiveEvent
 import kotlinx.coroutines.launch
 
-class FilterViewModel(private val filterRepository: FilterRepository) : BaseViewModel() {
+class FilterViewModel(
+    private val filterRepository: FilterRepository,
+) : BaseViewModel() {
 
     private val _genreList: MutableLiveData<List<GenreListItem>> = MutableLiveData()
     val genreList: LiveData<List<GenreListItem>> = _genreList
@@ -20,7 +22,7 @@ class FilterViewModel(private val filterRepository: FilterRepository) : BaseView
         loadGenres()
     }
 
-    fun loadGenres() {
+    private fun loadGenres() {
         viewModelScope.launch {
             try {
                 _genreList.value = filterRepository.getGenreList().map { genre ->
@@ -38,7 +40,7 @@ class FilterViewModel(private val filterRepository: FilterRepository) : BaseView
         else
             null
 
-    fun passFilters(filters: AnimeSearchFilters) {
+    fun onConfirmButtonClick(filters: AnimeSearchFilters) {
         passFiltersCommand.value = filters
     }
 

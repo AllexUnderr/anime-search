@@ -10,8 +10,8 @@ import retrofit2.http.Query
 interface AnimeApi {
 
     @GET("anime")
-    suspend fun animesByFilters(
-        @Query("page") page: Int? = null,
+    suspend fun animeByFilters(
+        @Query("page") page: Int?,
         @Query("type") type: AnimeType?,
         @Query("min_score") minScore: Double?,
         @Query("status") status: AnimeStatus?,
@@ -21,5 +21,5 @@ interface AnimeApi {
     ): AnimeDto
 
     @GET("top/anime")
-    suspend fun topAnime(@Query("page") page: Int? = null): AnimeDto
+    suspend fun topAnime(@Query("page") page: Int?): AnimeDto
 }

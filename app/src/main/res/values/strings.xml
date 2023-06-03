@@ -28,7 +28,7 @@
     <string name="type">Type</string>
     <string name="status">Status</string>
     <string name="order_by">Order by</string>
-    <string name="unknown">Unknown</string>
+    <string name="unknown">\?</string>
     <string name="rankButton">rank</string>
     <string name="genres">Genres</string>
     <string name="network_error">No internet connection!</string>
