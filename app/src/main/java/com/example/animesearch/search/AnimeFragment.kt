@@ -8,9 +8,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.paging.LoadState
+import com.example.animesearch.R
 import com.example.animesearch.databinding.FragmentAnimeBinding
 import com.example.animesearch.filter.FilterDialogFragment
 import com.example.animesearch.filter.model.AnimeSearchFilters
+import com.google.android.material.button.MaterialButton
+import com.kennyc.view.MultiStateView
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -18,7 +22,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class AnimeFragment : Fragment(), FilterDialogFragment.Listener {
 
     private var _binding: FragmentAnimeBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = requireNotNull(_binding)
 
     private val viewModel: AnimeViewModel by viewModel()
 
@@ -60,11 +64,39 @@ class AnimeFragment : Fragment(), FilterDialogFragment.Listener {
             binding.animeRecyclerView.scrollToPosition(it)
         }
 
-        lifecycleScope.launch {
+        setRetryButtonClickListener(animeAdapter)
+
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
+
+                updateViewOnStateChange(animeAdapter)
+
                 viewModel.animeFlow.collectLatest {
                     animeAdapter.submitData(it)
                 }
+
+            }
+        }
+    }
+
+
+    private fun setRetryButtonClickListener(animeAdapter: AnimePagingAdapter) {
+        val errorView = binding.animeMultiStateView.getView(MultiStateView.ViewState.ERROR)
+        errorView?.findViewById<MaterialButton>(R.id.retryButton)
+            ?.let {
+                it.setOnClickListener {
+                    animeAdapter.retry()
+                }
+            }
+    }
+
+    private fun updateViewOnStateChange(animeAdapter: AnimePagingAdapter) {
+        animeAdapter.addLoadStateListener {
+            binding.animeMultiStateView.viewState = when {
+                it.prepend is LoadState.NotLoading && it.prepend.endOfPaginationReached -> MultiStateView.ViewState.CONTENT
+                it.refresh is LoadState.Error -> MultiStateView.ViewState.ERROR
+                !it.prepend.endOfPaginationReached -> MultiStateView.ViewState.LOADING
+                else -> MultiStateView.ViewState.EMPTY
             }
         }
     }
