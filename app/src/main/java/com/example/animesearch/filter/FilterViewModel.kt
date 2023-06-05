@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.animesearch.core.BaseViewModel
 import com.example.animesearch.filter.model.AnimeSearchFilters
+import com.example.animesearch.filter.model.Genre
 import com.example.animesearch.filter.model.GenreListItem
 import com.example.animesearch.helper.SingleLiveEvent
 import kotlinx.coroutines.launch
@@ -16,10 +17,17 @@ class FilterViewModel(
     private val _genreList: MutableLiveData<List<GenreListItem>> = MutableLiveData()
     val genreList: LiveData<List<GenreListItem>> = _genreList
 
-    val passFiltersCommand = SingleLiveEvent<AnimeSearchFilters>()
+    private val _openFiltersCommand: SingleLiveEvent<AnimeSearchFilters> = SingleLiveEvent()
+    val openFiltersCommand: SingleLiveEvent<AnimeSearchFilters> = _openFiltersCommand
 
     fun init() {
         loadGenres()
+    }
+
+    fun getCheckedGenres(): List<Genre> = genreList.value?.filter { it.isChecked }?.map { it.genre } ?: emptyList()
+
+    fun onConfirmButton(filters: AnimeSearchFilters) {
+        _openFiltersCommand.value = filters
     }
 
     private fun loadGenres() {
@@ -32,16 +40,6 @@ class FilterViewModel(
                 processError(e)
             }
         }
-    }
-
-    fun getCheckedGenres() =
-        if (genreList.value?.filter { it.isChecked }?.size != 0)
-            genreList.value?.filter { it.isChecked }?.map { it.genre }
-        else
-            null
-
-    fun onConfirmButtonClick(filters: AnimeSearchFilters) {
-        passFiltersCommand.value = filters
     }
 
     private fun onGenreListItemClick(item: GenreListItem) {

@@ -35,9 +35,4 @@ class AnimeViewModel(private val animeRepository: AnimeRepository) : BaseViewMod
         scrollToCommand.value = 0
         filtersFlow.value = filters
     }
-
-    fun onTopClicked() {
-        scrollToCommand.value = 0
-        filtersFlow.value = AnimeSearchFilters.Empty
-    }
 }

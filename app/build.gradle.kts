@@ -5,6 +5,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.kapt")
     id("com.google.devtools.ksp")
+    id("org.jetbrains.kotlin.plugin.parcelize")
     kotlin("plugin.serialization") version "1.8.21"
 }
 
