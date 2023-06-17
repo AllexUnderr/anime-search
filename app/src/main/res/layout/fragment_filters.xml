@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/type"
-        android:textColor="@color/primary40"
         android:textSize="25sp" />
 
     <Spinner
@@ -20,8 +19,8 @@
         android:layout_height="48dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="7dp"
-        android:backgroundTint="@color/primary20"
-        android:popupBackground="@color/primary80" />
+        android:backgroundTint="@color/primary"
+        android:popupBackground="@color/secondary_background" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -34,21 +33,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/min_score"
-            android:textColor="@color/primary40"
             android:textSize="22sp" />
 
         <EditText
             android:id="@+id/editTextNumberSigned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/primary20"
+            android:backgroundTint="@color/primary"
             android:ems="3"
             android:hint="@string/min_score_hint"
             android:importantForAutofill="no"
             android:inputType="numberDecimal"
             android:textAlignment="center"
-            android:textColor="@color/primary30"
-            android:textColorHint="@color/primary40" />
+            android:textColorHint="@color/secondary" />
 
     </LinearLayout>
 
@@ -57,13 +54,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/genres"
-        android:textColor="@color/primary40"
         android:textSize="22sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/genresRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="180dp"
         android:layout_marginVertical="15dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
@@ -72,7 +68,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/status"
-        android:textColor="@color/primary40"
         android:textSize="22sp" />
 
     <Spinner
@@ -82,15 +77,14 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="7dp"
         android:layout_marginBottom="15dp"
-        android:backgroundTint="@color/primary20"
-        android:popupBackground="@color/primary80" />
+        android:backgroundTint="@color/primary"
+        android:popupBackground="@color/secondary_background" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/order_by"
-        android:textColor="@color/primary40"
         android:textSize="22sp" />
 
     <Spinner
@@ -100,8 +94,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="7dp"
         android:layout_marginBottom="15dp"
-        android:backgroundTint="@color/primary20"
-        android:popupBackground="@color/primary80" />
+        android:backgroundTint="@color/primary"
+        android:popupBackground="@color/secondary_background" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/confirmButton"

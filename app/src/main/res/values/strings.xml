@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">animesearch</string>
+    <string name="app_name">AniSearch</string>
     <string name="anime_avatar">anime avatar</string>
     <string name="episode">episodes</string>
     <string name="score">Score:</string>
@@ -9,7 +9,7 @@
     <string name="popularity">, popularity:</string>
     <string name="premiered">Premiered:</string>
     <string name="filters">Filters</string>
-    <string name="top">Top</string>
+    <string name="animes">Animes</string>
     <string name="min_score_hint">8.0</string>
     <string name="min_score">Min score:</string>
     <string name="confirm">Confirm</string>
@@ -55,4 +55,5 @@
     <string name="loading">Loading…</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="retry">Retry</string>
+    <string name="profile">Profile</string>
 </resources>

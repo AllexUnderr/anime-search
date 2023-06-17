@@ -4,7 +4,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class GenreDto(
-    @SerialName("mal_id") val malId: Int,
-    @SerialName("name")   val name: String,
+data class GenresDto(
+    @SerialName("data") val data: List<GenreDto>
 )

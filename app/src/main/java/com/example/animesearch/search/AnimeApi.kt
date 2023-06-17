@@ -3,7 +3,7 @@ package com.example.animesearch.search
 import com.example.animesearch.search.model.AnimeStatus
 import com.example.animesearch.search.model.AnimeType
 import com.example.animesearch.search.model.OrderBy
-import com.example.animesearch.search.model.dto.AnimeDto
+import com.example.animesearch.search.model.dto.AnimesDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -18,8 +18,8 @@ interface AnimeApi {
         @Query("sfw") sfw: Boolean = true,
         @Query("genres") genres: String?,
         @Query("order_by") orderBy: OrderBy?,
-    ): AnimeDto
+    ): AnimesDto
 
     @GET("top/anime")
-    suspend fun topAnime(@Query("page") page: Int?): AnimeDto
+    suspend fun topAnime(@Query("page") page: Int?): AnimesDto
 }

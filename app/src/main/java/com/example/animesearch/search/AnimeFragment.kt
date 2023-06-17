@@ -1,17 +1,16 @@
 package com.example.animesearch.search
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
 import com.example.animesearch.R
 import com.example.animesearch.databinding.FragmentAnimeBinding
-import com.example.animesearch.filter.FilterDialogFragment
 import com.example.animesearch.filter.model.AnimeSearchFilters
 import com.google.android.material.button.MaterialButton
 import com.kennyc.view.MultiStateView
@@ -19,7 +18,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AnimeFragment : Fragment(), FilterDialogFragment.Listener {
+class AnimeFragment : Fragment() {
 
     private var _binding: FragmentAnimeBinding? = null
     private val binding get() = requireNotNull(_binding)
@@ -32,12 +31,9 @@ class AnimeFragment : Fragment(), FilterDialogFragment.Listener {
         return binding.root
     }
 
-    override fun onFiltersPicked(filters: AnimeSearchFilters) = viewModel.onFiltersApplied(filters)
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initViews()
         bindViewModel()
     }
 
@@ -46,14 +42,8 @@ class AnimeFragment : Fragment(), FilterDialogFragment.Listener {
         _binding = null
     }
 
-    private fun initViews() {
-        binding.showTopAnimeButton.setOnClickListener {
-            viewModel.onTopClicked()
-        }
-
-        binding.showFilterDialogButton.setOnClickListener {
-            FilterDialogFragment().show(childFragmentManager, FilterDialogFragment.TAG)
-        }
+    fun setFilters(filters: AnimeSearchFilters) {
+        viewModel.onFiltersApplied(filters)
     }
 
     private fun bindViewModel() {

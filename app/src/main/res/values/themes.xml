@@ -2,10 +2,10 @@
 <resources>
 
     <style name="Theme.Animesearch" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="android:windowBackground">@color/primary95</item>
-        <item name="colorPrimaryDark">@color/primary80</item>
-        <item name="android:navigationBarColor">@color/primary80</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="colorPrimaryDark">@color/background</item>
+        <item name="android:navigationBarColor">@color/background</item>
+        <item name="android:textColor">@color/primary</item>
         <item name="android:textSize">17sp</item>
         <item name="android:fontFamily">sans-serif-light</item>
     </style>

@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.fragment.app.DialogFragment
 import com.example.animesearch.R
 import com.example.animesearch.databinding.FragmentFiltersBinding
 import com.example.animesearch.filter.model.AnimeSearchFilters
@@ -14,10 +13,13 @@ import com.example.animesearch.search.model.AnimeType
 import com.example.animesearch.search.model.OrderBy
 import android.R.layout.simple_spinner_item
 import android.R.layout.simple_spinner_dropdown_item
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import com.example.animesearch.search.model.getStringResourceId
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FilterDialogFragment : DialogFragment() {
+class FilterFragment : Fragment() {
 
     private var _binding: FragmentFiltersBinding? = null
     private val binding get() = requireNotNull(_binding)
@@ -37,10 +39,6 @@ class FilterDialogFragment : DialogFragment() {
         bindViewModel()
 
         viewModel.init()
-    }
-
-    override fun getTheme(): Int {
-        return R.style.DialogTheme
     }
 
     override fun onDestroyView() {
@@ -68,35 +66,33 @@ class FilterDialogFragment : DialogFragment() {
         }
 
         binding.confirmButton.setOnClickListener {
-            onConfirmButtonClick()
-            dismiss()
+            viewModel.onConfirmButton(getFilters())
         }
     }
 
     private fun bindViewModel() {
         val genreAdapter = GenreRecyclerAdapter()
         binding.genresRecyclerView.adapter = genreAdapter
-        viewModel.genreList.observe(this) {
+        viewModel.genreList.observe(viewLifecycleOwner) {
             genreAdapter.submitList(it)
         }
 
-        viewModel.passFiltersCommand.observe(this) {
-            (parentFragment as Listener)
-                .onFiltersPicked(it)
+        viewModel.openFiltersCommand.observe(viewLifecycleOwner) {
+            setFragmentResult(
+                REQUEST_KEY,
+                bundleOf(BUNDLE_KEY to it)
+            )
         }
     }
 
-    private fun onConfirmButtonClick() {
-        viewModel.onConfirmButtonClick(
-            AnimeSearchFilters(
-                type = getAnimeType(),
-                minScore = getMinScore(),
-                genres = viewModel.getCheckedGenres(),
-                status = getAnimeStatus(),
-                orderBy = getOrderBy(),
-            )
+    private fun getFilters(): AnimeSearchFilters =
+        AnimeSearchFilters(
+            type = getAnimeType(),
+            minScore = getMinScore(),
+            genres = viewModel.getCheckedGenres(),
+            status = getAnimeStatus(),
+            orderBy = getOrderBy(),
         )
-    }
 
     private fun getAnimeType(): AnimeType? =
         if (binding.typeSpinner.selectedItemPosition != 0)
@@ -104,7 +100,7 @@ class FilterDialogFragment : DialogFragment() {
         else
             null
 
-    private fun getMinScore() =
+    private fun getMinScore(): Double? =
         if (!binding.editTextNumberSigned.text.isNullOrBlank())
             binding.editTextNumberSigned.text.toString().toDouble()
         else
@@ -122,12 +118,9 @@ class FilterDialogFragment : DialogFragment() {
         else
             null
 
-
-    interface Listener {
-        fun onFiltersPicked(filters: AnimeSearchFilters)
-    }
-
     companion object {
-        const val TAG = "FilterDialogFragment"
+        const val REQUEST_KEY = "filters"
+
+        const val BUNDLE_KEY = "AnimeSearchFilters"
     }
 }

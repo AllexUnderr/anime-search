@@ -4,36 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="15dp">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingHorizontal="10dp">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/showTopAnimeButton"
-            style="@style/CustomButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="@string/top" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/showFilterDialogButton"
-            style="@style/CustomButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="@string/filters" />
-
-    </LinearLayout>
+    android:padding="7dp">
 
     <com.kennyc.view.MultiStateView
         android:id="@+id/animeMultiStateView"
@@ -46,9 +17,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/animeRecyclerView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     </com.kennyc.view.MultiStateView>
