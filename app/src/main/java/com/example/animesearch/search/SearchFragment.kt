@@ -18,12 +18,12 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AnimeFragment : Fragment() {
+class SearchFragment : Fragment() {
 
     private var _binding: FragmentAnimeBinding? = null
     private val binding get() = requireNotNull(_binding)
 
-    private val viewModel: AnimeViewModel by viewModel()
+    private val viewModel: SearchViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAnimeBinding.inflate(inflater, container, false)
@@ -47,7 +47,7 @@ class AnimeFragment : Fragment() {
     }
 
     private fun bindViewModel() {
-        val animeAdapter = AnimePagingAdapter()
+        val animeAdapter = SearchPagingAdapter()
         binding.animeRecyclerView.adapter = animeAdapter
 
         viewModel.scrollToCommand.observe(viewLifecycleOwner) {
@@ -70,7 +70,7 @@ class AnimeFragment : Fragment() {
     }
 
 
-    private fun setRetryButtonClickListener(animeAdapter: AnimePagingAdapter) {
+    private fun setRetryButtonClickListener(animeAdapter: SearchPagingAdapter) {
         val errorView = binding.animeMultiStateView.getView(MultiStateView.ViewState.ERROR)
         errorView?.findViewById<MaterialButton>(R.id.retryButton)
             ?.let {
@@ -80,7 +80,7 @@ class AnimeFragment : Fragment() {
             }
     }
 
-    private fun updateViewOnStateChange(animeAdapter: AnimePagingAdapter) {
+    private fun updateViewOnStateChange(animeAdapter: SearchPagingAdapter) {
         animeAdapter.addLoadStateListener {
             binding.animeMultiStateView.viewState = when {
                 it.prepend is LoadState.NotLoading && it.prepend.endOfPaginationReached -> MultiStateView.ViewState.CONTENT
