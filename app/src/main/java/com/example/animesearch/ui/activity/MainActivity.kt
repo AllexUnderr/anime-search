@@ -5,7 +5,6 @@ import androidx.core.os.BundleCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
-import com.example.animesearch.R
 import com.example.animesearch.databinding.ActivityMainBinding
 import com.example.animesearch.filter.FilterFragment
 import com.example.animesearch.filter.model.AnimeSearchFilters
