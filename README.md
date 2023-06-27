@@ -13,7 +13,9 @@ Android application to find anime.
 - Top anime
 - Anime filter
 - Anime list paging
+- StateView
 
 ## Soon:
-- StateView
 - Search
+
+https://github.com/AllexUnderr/anime-search/assets/46843403/87204dec-d238-4f58-80d9-c9830a987b75
