@@ -7,7 +7,7 @@ import com.example.animesearch.search.model.dto.AnimesDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface AnimeApi {
+interface SearchApi {
 
     @GET("anime")
     suspend fun animeByFilters(

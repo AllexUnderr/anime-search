@@ -8,13 +8,13 @@ import androidx.fragment.app.commit
 import com.example.animesearch.databinding.ActivityMainBinding
 import com.example.animesearch.filter.FilterFragment
 import com.example.animesearch.filter.model.AnimeSearchFilters
-import com.example.animesearch.search.AnimeFragment
+import com.example.animesearch.search.SearchFragment
 
 class MainActivity : FragmentActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val animeFragment: AnimeFragment by lazy { AnimeFragment() }
+    private val searchFragment: SearchFragment by lazy { SearchFragment() }
     private val filterFragment: FilterFragment by lazy { FilterFragment() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +22,7 @@ class MainActivity : FragmentActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
         supportFragmentManager.commit {
-            add(binding.fragmentContainer.id, animeFragment)
+            add(binding.fragmentContainer.id, searchFragment)
         }
 
         setFiltersResultListener()
@@ -34,14 +34,14 @@ class MainActivity : FragmentActivity() {
         supportFragmentManager.setFragmentResultListener(FilterFragment.REQUEST_KEY, this) { _, bundle ->
             BundleCompat.getParcelable(bundle, FilterFragment.BUNDLE_KEY, AnimeSearchFilters::class.java)
                 ?.let { filters ->
-                    replaceFragment(animeFragment.also { it.setFilters(filters) })
+                    replaceFragment(searchFragment.also { it.setFilters(filters) })
                 }
         }
     }
 
     private fun setNavigation() {
         binding.navigationTopButton.setOnClickListener {
-            replaceFragment(animeFragment)
+            replaceFragment(searchFragment)
         }
 
         binding.navigationFiltersButton.setOnClickListener {
