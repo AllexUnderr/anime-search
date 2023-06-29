@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class AnimeDto(
     @SerialName("mal_id")       val malId: Int,
     @SerialName("images")       val images: ImageDto,
-    @SerialName("title")        val name: String,
+    @SerialName("title")        val title: String,
     @SerialName("episodes")     val episodes: Int?,
     @SerialName("score")        val score: Double?,
     @SerialName("scored_by")    val scoredBy: Int?,

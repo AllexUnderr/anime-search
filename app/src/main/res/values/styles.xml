@@ -10,4 +10,9 @@
         <item name="strokeColor">@color/secondary</item>
         <item name="strokeWidth">1dp</item>
     </style>
+
+    <style name="chipState">
+        <item name="chipBackgroundColor">@color/chip_background_state_list</item>
+        <item name="android:textColor">@color/chip_text_state_list</item>
+    </style>
 </resources>

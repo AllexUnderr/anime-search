@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 
-class AnimeViewModel(private val animeRepository: AnimeRepository) : BaseViewModel() {
+class SearchViewModel(private val searchRepository: SearchRepository) : BaseViewModel() {
 
     private val filtersFlow = MutableStateFlow(AnimeSearchFilters.Empty)
 
@@ -26,7 +26,7 @@ class AnimeViewModel(private val animeRepository: AnimeRepository) : BaseViewMod
             .flatMapLatest { filters ->
                 Pager(
                     config = PagingConfig(25, enablePlaceholders = true),
-                    pagingSourceFactory = { AnimePagingSource(animeRepository, filters) },
+                    pagingSourceFactory = { SearchPagingSource(searchRepository, filters) },
                 ).flow
             }
             .cachedIn(viewModelScope)

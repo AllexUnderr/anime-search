@@ -4,16 +4,16 @@ import com.example.animesearch.filter.model.AnimeSearchFilters
 import com.example.animesearch.search.model.Anime
 import com.example.animesearch.search.model.dto.AnimesDto
 
-class AnimeRepository(private val animeApi: AnimeApi) {
+class SearchRepository(private val searchApi: SearchApi) {
 
     suspend fun getAnimeList(page: Int, filters: AnimeSearchFilters) =
         if (filters == AnimeSearchFilters.Empty) getTopAnimeList(page)
         else getFilteredAnimeList(page, filters)
 
-    private suspend fun getTopAnimeList(page: Int): List<Anime> = animeApi.topAnime(page).toModel()
+    private suspend fun getTopAnimeList(page: Int): List<Anime> = searchApi.topAnime(page).toModel()
 
     private suspend fun getFilteredAnimeList(page: Int, filters: AnimeSearchFilters): List<Anime> =
-        animeApi.animeByFilters(
+        searchApi.animeByFilters(
             page = page,
             type = filters.type,
             minScore = filters.minScore,
@@ -27,7 +27,7 @@ class AnimeRepository(private val animeApi: AnimeApi) {
             Anime(
                 id = it.malId,
                 imageUrl = it.images.jpg.imageUrl,
-                name = it.name,
+                name = it.title,
                 episodeCount = it.episodes,
                 score = it.score,
                 scoredBy = it.scoredBy,

@@ -11,8 +11,8 @@ import com.example.animesearch.R
 import com.example.animesearch.databinding.RecyclerviewAnimeItemBinding
 import com.example.animesearch.search.model.Anime
 
-class AnimePagingAdapter :
-    PagingDataAdapter<Anime, AnimePagingAdapter.ViewHolder>(AnimeItemCallback()) {
+class SearchPagingAdapter :
+    PagingDataAdapter<Anime, SearchPagingAdapter.ViewHolder>(AnimeItemCallback()) {
 
     class ViewHolder(val binding: RecyclerviewAnimeItemBinding) : RecyclerView.ViewHolder(binding.root)
 

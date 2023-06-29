@@ -6,9 +6,9 @@ import com.example.animesearch.filter.FilterRepository
 import com.example.animesearch.filter.FilterViewModel
 import com.example.animesearch.filter.model.database.GenreDao
 import com.example.animesearch.helper.AppDatabase
-import com.example.animesearch.search.AnimeApi
-import com.example.animesearch.search.AnimeRepository
-import com.example.animesearch.search.AnimeViewModel
+import com.example.animesearch.search.SearchApi
+import com.example.animesearch.search.SearchRepository
+import com.example.animesearch.search.SearchViewModel
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -40,20 +40,20 @@ val appModule = module {
             .baseUrl(url)
             .build()
 
-    fun provideAnimeApi(retrofit: Retrofit): AnimeApi = retrofit.create(AnimeApi::class.java)
+    fun provideAnimeApi(retrofit: Retrofit): SearchApi = retrofit.create(SearchApi::class.java)
 
     fun provideFilterApi(retrofit: Retrofit): FilterApi = retrofit.create(FilterApi::class.java)
 
     fun provideGenreDao(context: Context): GenreDao = AppDatabase.getInstance(context).getGenreDao()
 
     single<Retrofit> { provideRetrofit() }
-    single<AnimeApi> { provideAnimeApi(get()) }
+    single<SearchApi> { provideAnimeApi(get()) }
     single<FilterApi> { provideFilterApi(get()) }
     single { provideGenreDao(get()) }
 
-    singleOf(::AnimeRepository)
+    singleOf(::SearchRepository)
     singleOf(::FilterRepository)
 
     viewModelOf(::FilterViewModel)
-    viewModelOf(::AnimeViewModel)
+    viewModelOf(::SearchViewModel)
 }
